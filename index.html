@@ -4,290 +4,270 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nguyen Dinh Trung - Portfolio</title>
+    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mui/material@5.16.7/umd/material-ui.production.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.25.6/babel.min.js"></script>
     <style>
-        :root {
-            --primary-color: #4CAF50;
-            --secondary-color: #45a049;
-            --text-color: #333;
-            --bg-color: #f9f9f9;
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        
-        body {
-            font-family: 'Roboto', Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 100px 0 50px;
-            text-align: center;
-        }
-        
-        header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
-        nav {
-            background-color: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        nav ul {
-            display: flex;
-            justify-content: center;
-            list-style-type: none;
-        }
-        
-        nav ul li a {
-            display: block;
-            padding: 20px;
-            text-decoration: none;
-            color: var(--text-color);
-            transition: color 0.3s ease;
-        }
-        
-        nav ul li a:hover {
-            color: var(--primary-color);
-        }
-        
-        section {
-            padding: 80px 0;
-            scroll-margin-top: 60px; /* Điều chỉnh giá trị này tùy thuộc vào chiều cao của thanh điều hướng */
-        }
-        
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            text-align: center;
-            color: var(--primary-color);
-        }
-        
-        .about-content, .skills-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .about-text, .skills-list {
-            flex: 1;
-            padding: 0 20px;
-        }
-        
-        .skills-list ul {
-            list-style-type: none;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-        
-        .skills-list li {
-            background-color: white;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .project {
-            background-color: white;
-            border-radius: 5px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        .hover-scale {
             transition: transform 0.3s ease;
         }
-        
-        .project:hover {
-            transform: translateY(-5px);
-        }
-        
-        .project img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        
-        .project-content {
-            padding: 20px;
-        }
-        
-        .project h3 {
-            margin-bottom: 10px;
-            color: var(--primary-color);
-        }
-        
-        .contact-icons {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
-        }
-        
-        .contact-icons a {
-            font-size: 2rem;
-            color: var(--primary-color);
-            transition: color 0.3s ease;
-        }
-        
-        .contact-icons a:hover {
-            color: var(--secondary-color);
-        }
-        
-        footer {
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 20px 0;
-        }
-        
-        .project-link {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 8px 15px;
-            background-color: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        
-        .project-link:hover {
-            background-color: var(--secondary-color);
+        .hover-scale:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Nguyen Dinh Trung</h1>
-            <p>Software Engineer</p>
-        </div>
-    </header>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { Container, AppBar, Toolbar, Typography, Button, IconButton, Grid, Card, CardContent, CardMedia, Switch, CssBaseline, ThemeProvider, createTheme } = MaterialUI;
 
-    <nav id="main-nav">
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-
-    <main>
-        <section id="about">
-            <div class="container">
-                <h2>About Me</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <p>Hello, I'm Nguyen Dinh Trung, a passionate software engineer dedicated to creating innovative solutions. I'm currently focusing on web and mobile application development, specializing in Java. I'm always seeking new challenges to enhance my skills and grow as a developer.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="skills">
-            <div class="container">
-                <h2>Skills</h2>
-                <div class="skills-content">
-                    <div class="skills-list">
-                        <ul>
-                            <li>HTML, CSS, JavaScript</li>
-                            <li>Java, Spring Boot</li>
-                            <li>Python, Pandas</li>
-                            <li>MSSQL, MySQL</li>
-                            <li>Git, GitHub</li>
-                            <li>Responsive Web Design</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects">
-            <div class="container">
-                <h2>Projects</h2>
-                <div class="projects-grid">
-                    <div class="project">
-                        <img src="Images/project1.jpg" alt="Motorcycle Sales Website">
-                        <div class="project-content">
-                            <h3>Motorcycle Sales Website</h3>
-                            <p>Developed a dynamic e-commerce platform for motorcycle sales at dinhtrung0902.id.vn. The website features a user-friendly interface, product catalog, and secure payment integration. Built using HTML, CSS, JavaScript, and PHP with MySQL database.</p>
-                            <a href="http://dinhtrung0902.id.vn" target="_blank" class="project-link">Visit Website</a>
-                        </div>
-                    </div>
-                    <div class="project">
-                        <img src="https://via.placeholder.com/300x200" alt="Project 2">
-                        <div class="project-content">
-                            <h3>Coming soon</h3>
-                            <p>Coming soon</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact">
-            <div class="container">
-                <h2>Contact</h2>
-                <div class="contact-icons">
-                    <a href="mailto:dinhtrung0902@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-                    <a href="https://linkedin.com/in/dinhtrung0902" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com/dinhtrung0902" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; <span id="currentYear"></span> Nguyen Dinh Trung. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script>
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-        // Thêm hiệu ứng smooth scrolling
-        document.querySelector('#main-nav').addEventListener('click', function(e) {
-            if(e.target.tagName === 'A') {
-                e.preventDefault();
-                const targetId = e.target.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
+        const lightTheme = createTheme({
+            palette: {
+                mode: 'light',
+                primary: { main: '#4CAF50' },
+                secondary: { main: '#45a049' },
+                background: { default: '#f9f9f9' }
             }
         });
+
+        const darkTheme = createTheme({
+            palette: {
+                mode: 'dark',
+                primary: { main: '#66BB6A' },
+                secondary: { main: '#4CAF50' },
+                background: { default: '#1a202c', paper: '#2d3748' }
+            }
+        });
+
+        const navItems = [
+            { label: 'About', id: 'about' },
+            { label: 'Skills', id: 'skills' },
+            { label: 'Projects', id: 'projects' },
+            { label: 'Contact', id: 'contact' }
+        ];
+
+        const Header = ({ theme }) => (
+            <header className={`bg-gradient-to-r ${theme.palette.mode === 'dark' ? 'from-gray-800 to-gray-900' : 'from-green-500 to-green-600'} text-white py-32 text-center`}>
+                <Container>
+                    <Typography variant="h1" className="text-5xl md:text-6xl font-bold mb-4 fade-in">
+                        Nguyen Dinh Trung
+                    </Typography>
+                    <Typography variant="h5" className="opacity-90 text-lg md:text-xl">
+                        Software Engineer
+                    </Typography>
+                </Container>
+            </header>
+        );
+
+        const Nav = ({ theme, toggleTheme }) => {
+            const handleScroll = (id) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            };
+
+            return (
+                <AppBar position="sticky" className={`${theme.palette.mode === 'dark' ? 'bg-gray-800' : 'bg-white'} shadow-lg`}>
+                    <Toolbar className="justify-between">
+                        <div className="flex">
+                            {navItems.map((item) => (
+                                <Button
+                                    key={item.id}
+                                    onClick={() => handleScroll(item.id)}
+                                    className={`mx-2 ${theme.palette.mode === 'dark' ? 'text-gray-200 hover:text-green-400' : 'text-gray-800 hover:text-green-500'}`}
+                                >
+                                    {item.label}
+                                </Button>
+                            ))}
+                        </div>
+                        <div className="flex items-center">
+                            <Typography variant="body2" className={`mr-2 ${theme.palette.mode === 'dark' ? 'text-gray-200' : 'text-gray-800'}`}>
+                                {theme.palette.mode === 'light' ? 'Dark Mode' : 'Light Mode'}
+                            </Typography>
+                            <Switch checked={theme.palette.mode === 'dark'} onChange={toggleTheme} color="primary" />
+                        </div>
+                    </Toolbar>
+                </AppBar>
+            );
+        };
+
+        const About = ({ theme }) => (
+            <section id="about" className={`py-24 ${theme.palette.mode === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
+                <Container>
+                    <Typography variant="h2" className={`text-4xl ${theme.palette.mode === 'dark' ? 'text-green-400' : 'text-green-700'} text-center mb-12 font-bold fade-in`}>
+                        About Me
+                    </Typography>
+                    <Grid container justifyContent="center">
+                        <Grid item xs={12} md={8}>
+                            <Typography variant="body1" className={`text-center ${theme.palette.mode === 'dark' ? 'text-gray-300' : 'text-gray-700'} fade-in`}>
+                                Hello, I'm Nguyen Dinh Trung, a passionate software engineer dedicated to creating innovative solutions. I'm currently focusing on web and mobile application development, specializing in Java. I'm always seeking new challenges to enhance my skills and grow as a developer.
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                </Container>
+            </section>
+        );
+
+        const Skills = ({ theme }) => {
+            const skills = [
+                "HTML, CSS, JavaScript",
+                "Java, Spring Boot",
+                "Python, Pandas",
+                "MSSQL, MySQL",
+                "Git, GitHub",
+                "Responsive Web Design"
+            ];
+
+            return (
+                <section id="skills" className={`py-24 ${theme.palette.mode === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+                    <Container>
+                        <Typography variant="h2" className={`text-4xl ${theme.palette.mode === 'dark' ? 'text-green-400' : 'text-green-700'} text-center mb-12 font-bold fade-in`}>
+                            Skills
+                        </Typography>
+                        <Grid container spacing={3}>
+                            {skills.map((skill, index) => (
+                                <Grid item xs={12} sm={6} md={4} key={index}>
+                                    <Card className={`hover-scale ${theme.palette.mode === 'dark' ? 'bg-gray-700' : 'bg-white'} shadow-lg`}>
+                                        <CardContent>
+                                            <Typography variant="h6" className={theme.palette.mode === 'dark' ? 'text-gray-200' : 'text-gray-800'}>
+                                                {skill}
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </Container>
+                </section>
+            );
+        };
+
+        const Projects = ({ theme }) => {
+            const projects = [
+                {
+                    title: "Motorcycle Sales Website",
+                    description: "Developed a dynamic e-commerce platform for motorcycle sales at dinhtrung0902.id.vn. The website features a user-friendly interface, product catalog, and secure payment integration. Built using HTML, CSS, JavaScript, and PHP with MySQL database.",
+                    image: "Images/project1.jpg",
+                    link: "http://dinhtrung0902.id.vn"
+                },
+                {
+                    title: "Coming soon",
+                    description: "Coming soon",
+                    image: "https://via.placeholder.com/300x200"
+                }
+            ];
+
+            return (
+                <section id="projects" className={`py-24 ${theme.palette.mode === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
+                    <Container>
+                        <Typography variant="h2" className={`text-4xl ${theme.palette.mode === 'dark' ? 'text-green-400' : 'text-green-700'} text-center mb-12 font-bold fade-in`}>
+                            Projects
+                        </Typography>
+                        <Grid container spacing={4}>
+                            {projects.map((project, index) => (
+                                <Grid item xs={12} sm={6} key={index}>
+                                    <Card className={`hover-scale ${theme.palette.mode === 'dark' ? 'bg-gray-700' : 'bg-white'} shadow-lg`}>
+                                        <CardMedia
+                                            component="img"
+                                            height="200"
+                                            image={project.image}
+                                            alt={project.title}
+                                            className="object-cover"
+                                        />
+                                        <CardContent>
+                                            <Typography variant="h5" className={`mb-2 ${theme.palette.mode === 'dark' ? 'text-green-400' : 'text-green-700'} font-semibold`}>
+                                                {project.title}
+                                            </Typography>
+                                            <Typography variant="body2" className={`mb-4 ${theme.palette.mode === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                                                {project.description}
+                                            </Typography>
+                                            {project.link && (
+                                                <Button
+                                                    variant="contained"
+                                                    className={`bg-green-500 hover:bg-green-600 ${theme.palette.mode === 'dark' ? 'bg-green-600 hover:bg-green-700' : ''}`}
+                                                    href={project.link}
+                                                    target="_blank"
+                                                >
+                                                    Visit Website
+                                                </Button>
+                                            )}
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </Container>
+                </section>
+            );
+        };
+
+        const Contact = ({ theme }) => (
+            <section id="contact" className={`py-24 ${theme.palette.mode === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+                <Container>
+                    <Typography variant="h2" className={`text-4xl ${theme.palette.mode === 'dark' ? 'text-green-400' : 'text-green-700'} text-center mb-12 font-bold fade-in`}>
+                        Contact
+                    </Typography>
+                    <div className="flex justify-center gap-10">
+                        <IconButton href="mailto:dinhtrung0902@gmail.com" className={`text-3xl ${theme.palette.mode === 'dark' ? 'text-green-400 hover:text-green-500' : 'text-green-500 hover:text-green-600'}`}>
+                            <i className="fas fa-envelope"></i>
+                        </IconButton>
+                        <IconButton href="https://linkedin.com/in/dinhtrung0902" target="_blank" className={`text-3xl ${theme.palette.mode === 'dark' ? 'text-green-400 hover:text-green-500' : 'text-green-500 hover:text-green-600'}`}>
+                            <i className="fab fa-linkedin"></i>
+                        </IconButton>
+                        <IconButton href="https://github.com/dinhtrung0902" target="_blank" className={`text-3xl ${theme.palette.mode === 'dark' ? 'text-green-400 hover:text-green-500' : 'text-green-500 hover:text-green-600'}`}>
+                            <i className="fab fa-github"></i>
+                        </IconButton>
+                    </div>
+                </Container>
+            </section>
+        );
+
+        const Footer = ({ theme }) => (
+            <footer className={`py-6 text-center ${theme.palette.mode === 'dark' ? 'bg-gray-900 text-gray-300' : 'bg-green-500 text-white'}`}>
+                <Container>
+                    <Typography variant="body2">
+                        © {new Date().getFullYear()} Nguyen Dinh Trung. All rights reserved.
+                    </Typography>
+                </Container>
+            </footer>
+        );
+
+        const App = () => {
+            const [theme, setTheme] = useState(lightTheme);
+
+            const toggleTheme = () => {
+                setTheme(theme.palette.mode === 'light' ? darkTheme : lightTheme);
+            };
+
+            return (
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <Header theme={theme} />
+                    <Nav theme={theme} toggleTheme={toggleTheme} />
+                    <main>
+                        <About theme={theme} />
+                        <Skills theme={theme} />
+                        <Projects theme={theme} />
+                        <Contact theme={theme} />
+                    </main>
+                    <Footer theme={theme} />
+                </ThemeProvider>
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById('root'));
     </script>
 </body>
 </html>
